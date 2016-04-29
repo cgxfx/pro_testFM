@@ -1,0 +1,87 @@
+<div style="margin-top:40px">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-11">
+			<div class="row">
+				<div class="col-md-2" style="right:15px">
+					<div class="row" style="margin-bottom:10px" ng-repeat="menus in staticMenuType.menu">
+						<div ng-if="menus.type.length==1?true:false" class="col-md-offset-8 col-md-4" ng-repeat="menuTypes in menus.type">
+							<button ng-if="menuTypes.name=='ALL'?true:false" id="menuTypeId{{menuTypes.name}}" 
+								class="btn btn-success btn-default"
+							 	ng-click="getIntoTypeMenu(menuTypes.name)">
+								{{menuTypes.value}}
+							</button>
+							<button ng-if="menuTypes.name=='ALL'?false:true" id="menuTypeId{{menuTypes.name}}" 
+								class="btn btn-default"
+							 	ng-click="getIntoTypeMenu(menuTypes.name)">
+								{{menuTypes.value}}
+							</button>
+						</div>
+
+						<div ng-if="menus.type.length==2?true:false" class="col-md-offset-2 col-md-3" ng-repeat="menuTypes in menus.type">
+							<button ng-if="menuTypes.name=='ALL'?true:false" id="menuTypeId{{menuTypes.name}}" 
+								class="btn btn-success btn-default"
+							 	ng-click="getIntoTypeMenu(menuTypes.name)">
+								{{menuTypes.value}}
+							</button>
+							<button ng-if="menuTypes.name=='ALL'?false:true" id="menuTypeId{{menuTypes.name}}" 
+								class="btn btn-default"
+							 	ng-click="getIntoTypeMenu(menuTypes.name)">
+								{{menuTypes.value}}
+							</button>
+						</div>
+
+						<div ng-if="menus.type.length==3?true:false" class="col-md-4" ng-repeat="menuTypes in menus.type">
+							<button ng-if="menuTypes.name=='ALL'?true:false" id="menuTypeId{{menuTypes.name}}" 
+								class="btn btn-success btn-default"
+							 	ng-click="getIntoTypeMenu(menuTypes.name)">
+								{{menuTypes.value}}
+							</button>
+							<button ng-if="menuTypes.name=='ALL'?false:true" id="menuTypeId{{menuTypes.name}}" 
+								class="btn btn-default"
+							 	ng-click="getIntoTypeMenu(menuTypes.name)">
+								{{menuTypes.value}}
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-10">
+					<div ng-if="menusInfo.show?(menusInfo.detailShow?false:true):false" class="row" 
+						ng-repeat="menus in menusInfo" id="disMenusId{{$index}}" style="margin-top:10px"
+						ng-mouseout="getRidOfStyle($index)" ng-mouseover="setStyle($index)"
+						ng-click="getIntoMenu(menus.menu.id)">
+						<div class="col-md-2" style="text-align:center">
+							<img ng-src="{{menus.menu.avatrImg}}" width="80%" />
+						</div>
+						<div ng-if="menus.menu.shareTitle==null?true:false" class="col-md-4" 
+							style="font-size:20px;margin-top:28px">{{menus.menu.name | translate}}</div>
+						<div ng-if="menus.menu.shareTitle!=null?true:false" class="col-md-4" 
+							style="font-size:20px;margin-top:28px">{{menus.menu.shareTitle | translate}}</div>
+
+						<div ng-click="playAllSongs(menus.menu.id)" style="margin-top:30px;" 
+							class="col-md-2 icon-play fa-2x"></div>
+
+						<div class="col-md-2" style="font-size:20px;margin-top:28px">{{menus.menu.userName}}</div>
+						<div class="col-md-2" style="font-size:20px;margin-top:28px">{{menus.menu.num}}</div>
+					</div>
+
+					<div ng-if="menusInfo.show?(menusInfo.detailShow?true:false):false" class="row">
+						<div list-head head-info="headInfo" click-call-back="playAllSongs(value)"></div>
+						<div style="height:auto;">
+						<div ng-if="headInfo.isSinger==1?false:true" songs-list songs-info="songsInfo" 
+							click-song-call-back="playAllSongs(value)" 
+							click-singer-call-back="getSongsBySingerId(value)" 
+							click-album-call-back="getSongsByAlbumId(value)"
+							del-favor-call-back="delFavor(value)" 
+							append-favor-call-back="appendFavor(value)">
+						</div>
+						<div ng-if="headInfo.isSinger==1?true:false">
+							<div albums-list ng-repeat="album in albumSongs" click-song-call-back="playAllSongs(value)"
+							click-album-call-back="getSongsByAlbumId(value)" album-songs="album" del-favor-call-back="delFavor(value)" append-favor-call-back="appendFavor(value)"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

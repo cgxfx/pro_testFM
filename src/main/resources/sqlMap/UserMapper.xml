@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.UserDao">
+
+	<resultMap type="model.Visitor" id="visitorResultMap">
+		<result column="id" property="id" />
+	</resultMap>
+	
+	<resultMap type="model.User" id="userResultMap">
+		<result column="id" property="id" />
+		<result column="visitor_id" property="visitorId" />
+		<result column="nick_name" property="nickName" />
+		<result column="user_email" property="userEmail" />
+		<result column="user_pwd" property="userPwd" />
+		<result column="avatr_img" property="avatrImg" />
+	</resultMap>
+
+	<insert id="createVisitor" useGeneratedKeys="true" keyProperty="id" parameterType="model.Visitor">
+		insert into fm_visitor(id) values(#{id})
+	</insert>
+	
+	<select id="getVisitor" resultMap="visitorResultMap">
+		select * from fm_visitor where id=#{id}
+	</select>
+	
+	<select id="getUser" resultMap="userResultMap">
+		select * from fm_user
+		<where>
+			<if test="params.userEmail != null">and user_email=#{params.userEmail}</if>
+			<if test="params.visitorId != null">and visitor_id=#{params.visitorId}</if>
+			<if test="params.nickName != null">and nick_name=#{params.nickName}</if>
+		</where>
+	</select>
+	
+	<insert id="createUser" useGeneratedKeys="true" keyProperty="id" parameterType="model.User">
+		insert into fm_user(visitor_id, nick_name, user_email, user_pwd, avatr_img)
+		values(#{visitorId}, #{nickName}, #{userEmail}, #{userPwd}, #{avatrImg})
+	</insert>
+	
+	<update id="updateUser" parameterType="model.User">
+		update fm_user
+		<set>
+			<if test="userPwd != null">user_pwd=#{userPwd},</if> 
+			<if test="nicekName != null">nick_name=#{nickName},</if> 
+			<if test="avatrImg != null">avatr_img=#{avatrImg},</if> 
+		</set>
+		where id=#{id}
+	</update>
+</mapper>
+

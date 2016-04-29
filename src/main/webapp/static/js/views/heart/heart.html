@@ -1,0 +1,20 @@
+<div style="margin-top:40px;">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-11">
+			<div list-head head-info="headInfo" click-call-back="playAllSongs(value)"></div>
+			<div style="height:auto;">
+				<div ng-if="headInfo.isSinger==1?false:true" songs-list songs-info="songsInfo" 
+				click-song-call-back="playAllSongs(value)" 
+					click-singer-call-back="getSongsBySingerId(value)" 
+					click-album-call-back="getSongsByAlbumId(value)"
+					del-favor-call-back="delFavor(value)" 
+					append-favor-call-back="appendFavor(value)">
+				</div>
+				<div ng-if="headInfo.isSinger==1?true:false">
+					<div albums-list ng-repeat="album in albumSongs" click-song-call-back="playAllSongs(value)"
+					click-album-call-back="getSongsByAlbumId(value)" album-songs="album" del-favor-call-back="delFavor(value)" append-favor-call-back="appendFavor(value)"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

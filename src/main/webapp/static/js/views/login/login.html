@@ -1,0 +1,127 @@
+<div>
+	<div style="background:#A8D64E;margin-top:20px;height:700px;width:100%;border-radius:200px;">
+	
+	<div class="row">
+		<div class="col-md-offset-4 col-md-4">
+			<div class="row"
+				style="font-size: 42px; font-weigth: bold; text-align: center; margin-top: 20px;">
+				<div class="col-md-offset-1 col-md-4" id="loginTab"
+					ng-mouseover="switchTab('loginTab')"
+					style="display: inline-block; padding-bottom: 24px; border-bottom: 3px solid red;">
+					<a href="javascript:void(0)"
+						style="text-decoration: none; color: #FFC839;">{{'LOGIN' |
+						translate}} </a>
+				</div>
+				<div id="registerTab" ng-mouseover="switchTab('registerTab')"
+					class="col-md-offset-2 col-md-4"
+					style="display: inline-block; padding-bottom: 25px;">
+					<a href="javascript:void(0)"
+						style="text-decoration: none; color: #FFC839;">{{'REGISTER'|translate}}</a>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top:30px;font-size:30px">
+				<!-- 登录 -->
+				<form class="form-horizontal" name="loginform" ng-if="registerOrLogin == 'LOGIN' ? true : false">
+					<div class="form-group">
+						<label class="col-md-offset-1 col-md-11">
+							{{'USEREMAIL' | translate}}	
+						</label>
+						<div class="col-md-offset-1 col-md-10">
+							<input type="email" class="form-control" placeholder="{{'PLACEHOLDER_USEREMAIL' | translate}}" ng-model="loginInfo.userEmail" style="height:40px;padding:10px;" required/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-offset-1 col-md-11">
+							{{'USERPWD' | translate}}	
+						</label>
+						<div class="col-md-offset-1 col-md-10">
+							<input type="password" class="form-control" placeholder="{{'PLACEHOLDER_USERPWD' | translate}}" ng-model="loginInfo.userPwd" style="height:40px;padding:10px;" required/>
+						</div>
+					</div>
+
+					<div class="form-group" style="margin-top:60px">
+						<button class="col-md-offset-1 col-md-10 btn btn-primary"
+							style="height: 80px; font-size: 40px;" ng-click="loginAsUser()"
+							ng-disabled="loginform.$invalid">{{'LOGIN' |
+							translate}}</button>
+					</div>
+				</form>
+
+				<!-- 注册 验证码-->
+				<form class="form-horizontal" name="registerform" ng-if="registerOrLogin == 'REGISTER' ? (doRegister==1?false:true) : false">
+					<div class="form-group">
+						<label class="col-md-offset-1 col-md-11">
+							{{'USEREMAIL' | translate}}	
+						</label>
+						<div class="col-md-offset-1 col-md-10">
+							<input type="email" class="form-control" placeholder="{{'PLACEHOLDER_USEREMAIL' | translate}}" ng-model="registerInfo.userEmail" style="height:40px;padding:10px;" required/>
+						</div>
+					</div>
+
+					<div class="form-group" style="margin-top: 30px;">
+						<label class="col-md-offset-1 col-md-11">{{'VERIFICATION_CODE' | translate}}
+						</label>
+						<div class="col-md-offset-1 col-md-4">
+							<input type="text" class="form-control" ng-model="registerInfo.identity"
+								placeholder="{{'PLACEHOLDER_VERIFICATION_CODE'|translate}}" style="height: 40px; padding: 10px;">
+						</div>
+						<input type="button" id="identityCode" class="col-md-4 btn btn-primary" style="height: 40px;" ng-click="registerAsUser()"
+							ng-disabled="registerform.$invalid" value="{{'VERIFICATION_ID'|translate}}" />
+						<a style="text-decoration: none;margin-top:-11px" href="javascript:void(0)" ng-click="verifyIdentity4Register()" class="col-md-1 icon-circle-arrow-right fa-2x">
+						</a>
+					</div>
+				</form>
+
+
+				<!-- 注册 -->
+				<form class="form-horizontal" name="doregisterform" ng-if="registerOrLogin == 'REGISTER' ? (doRegister==1?true:false) : false">
+					
+					<div class="form-group">
+						<label class="col-md-offset-1 col-md-11">{{'USEREMAIL'|translate}}
+						</label>
+						<div class="col-md-offset-1 col-md-10">
+							<input type="email" class="form-control" readonly="true"
+								style="height: 40px; padding: 10px;" ng-model="registerInfo.userEmail" required>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-md-offset-1 col-md-11">{{'NICKNAME'|translate}}</label>
+						<div class="col-md-offset-1 col-md-10">
+							<input type="text" class="form-control" ng-model="registerInfo.nickName"
+								style="height: 40px; padding: 10px;"
+								placeholder="{{'UNNECESSARY'|translate}}">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-md-offset-1 col-md-11">{{'USERPWD'|translate}}</label>
+						<div class="col-md-offset-1 col-md-10">
+							<input type="password" class="form-control"
+								style="height: 40px; padding: 10px;" ng-model="registerInfo.userPwd"
+								placeholder="{{'PLACEHOLDER_USERPWD'|translate}}" required>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-md-offset-1 col-md-11">{{'USERPWD2'|translate}}</label>
+						<div class="col-md-offset-1 col-md-10">
+							<input type="password" class="form-control"
+								style="height: 40px; padding: 10px;" ng-model="registerInfo.userPwd2"
+								placeholder="{{'PLACEHOLDER_USERPWD2'|translate}}" required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<button class="col-md-offset-1 col-md-10 btn btn-success" style="height: 80px; font-size: 40px;" 
+							ng-click="doRegisterAsUser()" ng-disable="doregisterform.$invalid">{{'REGISTER'|translate}}</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+	</div>
+	</div>
+</div>

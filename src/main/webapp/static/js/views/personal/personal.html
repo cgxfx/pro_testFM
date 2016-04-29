@@ -1,0 +1,136 @@
+<div style="margin-top:40px;">
+	<div ng-if="menusInfo.show?(menusInfo.detailShow?false:true):false" class="row" 
+	style="margin-bottom:20px;color:#DBB982">
+		<div class="col-md-offset-1">
+			<h1>{{'CREATED_MENUS' | translate}}</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-offset-1 col-md-11">
+			<div ng-if="menusInfo.show?(menusInfo.detailShow?false:true):false" class="row">
+				<div class="col-md-10">
+					<div class="row" ng-repeat="menus in menusInfo" id="menusId{{$index}}" 
+					ng-mouseout="getRidOfStyle($index)" ng-mouseover="setStyle($index)" 
+					style="margin-bottom:10px">
+						<div class="col-md-1" ng-click="getIntoMenu(menus.menu.id)">
+							<img ng-src="{{menus.menu.avatrImg}}" width="100%"/>
+						</div>
+						<div class="col-md-4" style="margin-top:15px;" ng-click="getIntoMenu(menus.menu.id)">
+							{{menus.menu.name | translate}}
+						</div>
+						
+						<div ng-click="playAllSongs(menus.menu.id)" style="margin-top:15px;" class="col-md-1 icon-play"></div>
+
+						<div class="col-md-offset-1 col-md-2" style="margin-top:5px;">
+							<button type="button" class="btn btn-danger" ng-click="delMenu(menus.menu.id)">
+								{{'DEL_MENU' | translate}}
+							</button>
+						</div>
+						
+						<div class="col-md-2" style="margin-top:5px;">
+							<button ng-if="menus.menu.valid?true:false" type="button" class="btn btn-success" 
+							ng-click="editMenu(menus.menu.id, -1)">
+								{{'EDIT_MENU' | translate}}
+							</button>
+
+							<button ng-if="menus.menu.valid?false:true" type="button" class="btn btn-success"
+							ng-click="editMenu(menus.menu.id, 1)">
+								{{'SHARE_MENU' | translate}}
+							</button>
+						</div>
+
+						<div ng-if="menus.menu.valid?true:false" class="col-md-1" style="margin-top:15px">
+							{{'ALREADY_BEEN_SHARE' | translate}}
+						</div>
+					</div>
+					<div class="row" style="margin-top:20px;">
+						<acronym title={{"CREATE_MENU"|translate}}>
+							<div ng-click="creatMenu()" class="col-md-1 icon-plus-sign-alt fa-4x"></div>
+						</acronym>
+					</div>
+				</div>
+			</div>
+			<div ng-if="menusInfo.show?(menusInfo.detailShow?true:false):false">
+				<div class="row">
+					<div list-head head-info="headInfo" click-call-back="playAllSongs(value)"></div>
+					<div style="height:auto;">
+						<div ng-if="headInfo.isSinger==1?false:true" songs-list songs-info="songsInfo" 
+						click-song-call-back="playAllSongs(value)" 
+							click-singer-call-back="getSongsBySingerId(value)" 
+							click-album-call-back="getSongsByAlbumId(value)"
+							del-favor-call-back="delFavor(value)" 
+							append-favor-call-back="appendFavor(value)">
+						</div>
+						<div ng-if="headInfo.isSinger==1?true:false">
+							<div albums-list ng-repeat="album in albumSongs" click-song-call-back="playAllSongs(value)"
+							click-album-call-back="getSongsByAlbumId(value)" album-songs="album" del-favor-call-back="delFavor(value)" append-favor-call-back="appendFavor(value)"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div ng-if="menusInfo.show?false:(menusInfo.editShow?true:false)" class="row">
+				<div class="col-md-offset-3 col-md-6">
+					<div class="row">
+						<form class="form-horizontal" name="editfrom">
+							<div class="form-group">
+								<label class="col-md-offset-1 col-md-2" style="text-align:right;margin-top:6px;">
+									{{'MENU_NAME' | translate}}	
+								</label>
+								<div class="col-md-4">
+									<input type="text" class="form-control" ng-model="headInfo.name" style="height:30px;padding:5px;" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-offset-1 col-md-2" style="text-align:right">
+									{{'MENU_IS_SHARE' | translate}}	
+								</label>
+								<div class="col-md-1" style="margin-top:-8px;">
+									<input type="checkbox" class="form-control" ng-model="headInfo.valid" style="height:30px;padding:5px;" />
+								</div>
+							</div>
+
+							<div ng-if="headInfo.valid?true:false" class="form-group">
+								<label class="col-md-offset-1 col-md-2" style="text-align:right;margin-top:6px;">
+									{{'MENU_SHARE_TITLE' | translate}}	
+								</label>
+								<div class="col-md-4">
+									<input type="text" class="form-control" ng-model="headInfo.shareTitle" style="height:30px;padding:5px;" />
+								</div>
+							</div>
+
+							<div ng-if="headInfo.valid?true:false" class="form-group">
+								<label class="col-md-offset-1 col-md-2" style="text-align:right;margin-top:6px;">
+									{{'MENU_SHARE_TYPE' | translate}}	
+								</label>
+								<div class="col-md-4">
+									<select ng-model="headInfo.menuType" style="height:30px;padding:5px;">
+										<option value="SADNESS">{{'SADNESS' | translate}}</option>
+										<option value="QUIETNESS">{{'QUIETNESS' | translate}}</option>
+										<option value="HAPPINESS">{{'HAPPINESS' | translate}}</option>
+										<option value="HEARTBROKEN">{{'HEARTBROKEN' | translate}}</option>
+										<option value="MISSING">{{'MISSING' | translate}}</option>
+										<option value="SWEETIE">{{'SWEETIE' | translate}}</option>
+										<option value="INSPIRATION">{{'INSPIRATION' | translate}}</option>
+										<option value="CATHARSIS">{{'CATHARSIS' | translate}}</option>
+										<option value="WARMING">{{'WARMING' | translate}}</option>
+										<option value="LONELINESS">{{'LONELINESS' | translate}}</option>
+										<option value="REBELLIOUS">{{'REBELLIOUS' | translate}}</option>
+										<option value="EXCEPTATION">{{'EXCEPTATION' | translate}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group" style="margin-top:20px">
+								<button class="col-md-offset-1 col-md-6 btn btn-primary"
+									style="height: 40px; font-size: 20px;" 
+									ng-disabled="editfrom.$invalid" ng-click="doEditMenu()">
+									{{headInfo.btText}}</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

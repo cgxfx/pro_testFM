@@ -1,0 +1,65 @@
+<div style="margin-top:20px">
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="row" style="font-size:60px;color:#DBB982;border-bottom: 2px solid #CBB28D;margin-bottom:30px;">
+				<strong>{{"SEARCH"|translate}}</strong>
+				<span ng-show="searchTxt">- {{searchTxt}}</span>
+			</div>
+			
+			<div class="row" style="margin-bottom:15px;">
+				<input type="text" placeholder={{"PLACEHOLDER_SEARCH"|translate}} style="padding:10px;width:430px;" maxlength="20" ng-model="searchTxt"> 
+				<a href="javascript:void(0)" style="color:#CBB28D;text-decoration:none;">
+					<div ng-click="searchFun()" class="icon-search fa-2x" style="position:absolute;margin-top:9px;margin-left:-45px;height:48px;"></div>
+				</a>
+				
+				<div class="btn-group" role="group">
+  					<button type="button" id="serByName" ng-click="searchBy(0)" style="padding:10px;width:80px;background-color:#FFCE82" class="btn btn-default">{{"SEARCH_SONG"|translate}}</button>
+  					<button type="button" id="serBySinger" ng-click="searchBy(1)" style="padding:10px;width:80px;" class="btn btn-default">{{"SEARCH_SINGER"|translate}}</button>
+ 					<button type="button" id="serByAlbums" ng-click="searchBy(2)" style="padding:10px;width:80px;" class="btn btn-default">{{"SEARCH_ALBUM"|translate}}</button>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div ng-if="Type=='SONG'?songsInfo.show:false" style="height:auto;" songs-list songs-info="songsInfo" 
+				click-song-call-back="AddSongs(value)" 
+				click-singer-call-back="getSongsBySingerId(value)" 
+				click-album-call-back="getSongsByAlbumId(value)"
+				del-favor-call-back="delFavor(value)" 
+				append-favor-call-back="appendFavor(value)"></div>
+
+				<div ng-if="Type=='SINGER'?singersInfo.show:false">
+					<div singer-name-list singers-info="singersInfo"
+						click-call-back="getSongsBySingerId(value)">
+					</div>
+				</div>
+				<div ng-if="Type=='ALBUM'?albumsInfo.show:false">
+					<div album-name-list albums-info="albumsInfo"
+						click-album-call-back="getSongsByAlbumId(value)"
+						click-singer-call-back="getSongsBySingerId(value)">
+					</div>
+				</div>
+
+				<div class="row" ng-if="nextInfo" style="margin-top:20px">
+					<div class="col-md-12">
+					<div list-head head-info="headInfo" 
+					click-call-back="playAllSongs(value)"></div>
+					<div style="height:auto;margin-top:-20px;">
+						<div ng-if="headInfo.isSinger==1?false:true" 
+							songs-list songs-info="songsInfo" 
+							click-song-call-back="playAllSongs(value)" 
+							click-singer-call-back="getSongsBySingerId(value)" 
+							click-album-call-back="getSongsByAlbumId(value)"
+							del-favor-call-back="delFavor(value)" 
+							append-favor-call-back="appendFavor(value)">
+						</div>
+						<div ng-if="headInfo.isSinger==1?true:false">
+							<div albums-list ng-repeat="album in albumSongs" click-song-call-back="playAllSongs(value)"
+							click-album-call-back="getSongsByAlbumId(value)" album-songs="album" del-favor-call-back="delFavor(value)" append-favor-call-back="appendFavor(value)"></div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

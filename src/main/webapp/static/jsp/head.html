@@ -1,0 +1,45 @@
+<div class="row"
+	style="background: #F9F8F2; margin-bottom: 2px; font-size: 20px; border-bottom: 1px solid #CDC9B4">
+	<div class="col-md-offset-1 col-md-2">
+		<a ng-href="#/">
+			<table style="width: 100%; font-size: 15px">
+				<tr>
+					<td><img src="img/home.png"></td>
+					<td><strong style="font-size: 25px; font-family: newF">{{'HOME'
+							| translate}}<span style="color: #A8D64E">FM</span>
+					</strong> </br>
+					<span style="font-style: italic; padding-left: 10px">tudou.com</span>
+					</td>
+				</tr>
+			</table>
+		</a>
+	</div>
+	<div class="col-md-1 header-clearfix" style="margin-left: 50px"
+		id="title-heart" ng-mouseover="titleMouseOver('title-heart')"
+		ng-mouseleave="titleMouseLeave('title-heart')">
+		<a ng-href="#/heart">{{'HEART_LIST' | translate}}</a>
+	</div>
+	<div class="col-md-1 header-clearfix" id="title-personal"
+		ng-mouseover="titleMouseOver('title-personal')"
+		ng-mouseleave="titleMouseLeave('title-personal')">
+		<a ng-href="#/personal">{{'PERSONAL_LIST' | translate}}</a>
+	</div>
+	<div class="col-md-1 header-clearfix" id="title-filtrate"
+		ng-mouseover="titleMouseOver('title-filtrate')"
+		ng-mouseleave="titleMouseLeave('title-filtrate')">
+		<a ng-href="#/filtrate">{{'FILTRATE_LIST' | translate}}</a>
+	</div>
+	<div class="col-md-1 header-clearfix" id="title-search"
+		ng-mouseover="titleMouseOver('title-search')"
+		ng-mouseleave="titleMouseLeave('title-search')">
+		<a ng-href="#/search">{{'SEARCH' | translate}}</a>
+	</div>
+	<div class="col-md-offset-3 col-md-1">
+		<a ng-show="Authenticated == 1 ? false : true" ng-href="#/login"> <!-- <div class="icon-spinner icon-spin fa-2x" style="line-height:238%;color:#00FF7C;"></div> -->
+			<div class="header-clearfix" style="" id="title-login"
+				ng-mouseover="titleMouseOver('title-login')"
+				ng-mouseleave="titleMouseLeave('title-login')">{{'LOGIN' |
+				translate}}</div>
+		</a>
+	</div>
+</div>

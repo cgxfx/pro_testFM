@@ -1,0 +1,95 @@
+<style type="text/css">
+	@font-face {
+		font-family: newF;
+		src: url(../font/newF.ttf);
+	}
+	
+	.header-clearfix {
+		color: #2a3749;
+		cursor: hand;
+		text-align: center;
+		line-height: 480%;
+		font-weight: bold;
+	}
+	
+	a, a:hover {
+		text-decoration: none;
+	}
+	
+	div, div:hover{
+		text-decoration: none;
+	}
+
+	/* 图片君 */
+	#contentPic {
+		box-shadow: 0px 0px 10px #CCCCCC;
+		-moz-box-shadow: 0px 0px 10px #CCCCCC;
+		-webkit-box-shadow: 0px 0px 10px #CCCCCC;
+		z-index: 10;
+		position: relative;
+		margin: 50px auto 8px;
+	}
+
+	#contentPic .img-content {
+		float: left;
+		background-color: white;
+	}
+	
+	#contentPic .img-content img{
+		width:100%;
+		height:100%;
+	}
+
+	#contentPic ul {
+		position: absolute;
+	}
+
+	#contentPic ul li {
+		opacity: 0.3;
+		float: left;
+	}
+
+	#contentPic strong {
+		border-radius:35px;
+		width: 70px;
+		height: 70px;
+		line-height: 73px;
+		text-align: center;
+		background: #000;
+		opacity: 0.0;
+		font-size: 60px;
+		color: #fff;
+		cursor: pointer;
+		position: absolute;
+	}
+
+	#contentPic .content-sl {
+		left: 10px;
+		top: 40%;
+		z-index: 101;
+	}
+
+	#contentPic .content-sr {
+		right: 10px;
+		top: 40%;
+		z-index: 101;
+	}
+
+	#contentPic .content-left, #contentPic .content-right {
+		height: 520px;
+		background: #000;
+		opacity: 0;
+		top: 0px;
+		z-index: 102;
+		cursor: pointer;
+		position: absolute;
+	}
+
+	.icon-heart:before {
+		color:#B82525;
+	}
+	
+	.icon-plus-sign-alt:before {
+		color:#FFC839
+	}
+</style>

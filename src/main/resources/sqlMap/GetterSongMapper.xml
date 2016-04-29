@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.GetterSongDao">
+
+	<resultMap type="model.Song" id="songResultMap">
+		<result column="id" property="id" />
+		<result column="album_id" property="albumId" />
+		<result column="singer_id" property="singerId" />
+		<result column="album_name" property="albumName" />
+		<result column="singer_name" property="singerName" />
+		<result column="name" property="name" />
+		<result column="lyric" property="lyric" />
+		<result column="avatr_img" property="avatrImg" />
+		<result column="intro" property="intro" />
+		<result column="link_url" property="linkUrl" />
+		<result column="archive" property="archive" />
+		<result column="duration" property="duration"/>
+	</resultMap>
+	
+	<resultMap type="model.Album" id="albumResultMap">
+		<result column="id" property="id" />
+		<result column="singer_id" property="singerId" />
+		<result column="singer_name" property="singerName" />
+		<result column="name" property="name" />
+		<result column="publish_time" property="publishTime" />
+		<result column="intro" property="intro" />
+		<result column="avatr_img" property="avatrImg" />
+		<result column="archive" property="archive" />
+	</resultMap>
+	
+	<resultMap type="model.Singer" id="singerResultMap">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="intro" property="intro" />
+		<result column="avatr_img" property="avatrImg" />
+		<result column="archive" property="archive" />
+	</resultMap>
+	
+	<resultMap type="model.Menu" id="menuResultMap">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="user_name" property="userName" />
+		<result column="share_title" property="shareTitle" />
+		<result column="avatr_img" property="avatrImg" />
+		<result column="valid" property="valid" />
+		<result column="user_id" property="userId" />
+		<result column="visitor_id" property="visitorId" />
+		<result column="created_at" property="createdAt" />
+		<result column="menu_type" property="menuType" />
+		<result column="archive" property="archive" />
+	</resultMap>
+
+	<select id="getSongs" resultMap="songResultMap">
+		select * from fm_song
+		<where>
+			<if test="params.albumId != null">and album_id=#{params.albumId}</if>
+			<if test="params.singerId != null">and singer_id=#{params.singerId}</if>
+			<if test="params.songName != null">and name like '%${params.songName}%'</if>
+		</where>
+	</select>
+	
+	<select id="getSongsByIds" resultMap="songResultMap">
+		select * from fm_song where id in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach>
+	</select>
+	
+	<select id="getAlbumsByIds" resultMap="albumResultMap">
+		select * from fm_album where id in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach>
+	</select>
+	
+	<select id="getAlbums" resultMap="albumResultMap">
+		select * from fm_album
+		<where>
+			<if test="params.singerId != null">and singer_id=#{params.singerId}</if>
+			<if test="params.albumName != null">and name like '%${params.albumName}%'</if>
+		</where>
+	</select>
+	
+	<select id="getSingersByIds" resultMap="singerResultMap">
+		select * from fm_singer where id in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach>
+	</select>
+	
+	<select id="getSingers" resultMap="singerResultMap">
+		select * from fm_singer
+		<where>
+			<if test="params.singerName != null">and name like '%${params.singerName}%'</if>
+		</where>
+	</select>
+	
+	<select id="getMenuSongIds" resultType="java.lang.String">
+		select l.song_id from fm_menu m inner join fm_song_list l on m.id=l.menu_id
+		<where>
+			<if test="params.visitorId != null">and m.visitor_id=#{params.visitorId}</if>
+			and m.archive = '0'
+		</where>
+	</select>
+	
+	<select id="getMenus" resultMap="menuResultMap">
+		select * from fm_menu 
+		<where>
+			<if test="params.id != null">and id=#{params.id}</if>
+			<if test="params.visitorId != null">and visitor_id=#{params.visitorId}</if>
+			<if test="params.userId != null">and user_id=#{params.userId}</if>
+			<if test="params.valid != null">and valid=#{params.valid}</if>
+			<if test="params.menuType != null">and menuType=#{params.menuType}</if>
+			and archive = '0'
+		</where>
+	</select>
+	
+	<select id="getMenus4Discovery" resultMap="menuResultMap">
+		select m.*, u.nick_name as user_name from fm_menu m inner join fm_user u on m.user_id=u.id
+		<where>
+			<if test="params.id != null">and m.id=#{params.id}</if>
+			<if test="params.visitorId != null">and m.visitor_id=#{params.visitorId}</if>
+			<if test="params.userId != null">and m.user_id=#{params.userId}</if>
+			<if test="params.menuType != null">and m.menu_type=#{params.menuType}</if>
+			and m.archive = '0' and m.valid='1'
+		</where>
+	</select>
+	
+	<select id="getMenuSongs" resultMap="songResultMap">
+		select s.* from fm_song_list l inner join fm_song s on l.song_id=s.id 
+		inner join fm_menu m on l.menu_id=m.id
+		where l.menu_id=#{id} and m.archive = '0'
+	</select>
+</mapper>
+

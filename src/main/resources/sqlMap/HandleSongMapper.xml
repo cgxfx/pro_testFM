@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.HandleSongDao">
+
+	<insert id="appendMenuSong">
+		insert into fm_song_list(menu_id, song_id) values(#{menuId}, #{songId})
+	</insert>
+	
+	<delete id="delMenuSong">
+		delete from fm_song_list where menu_id=#{menuId} and song_id=#{songId}
+	</delete>
+	
+	<insert id="createMenu" useGeneratedKeys="true" keyProperty="id" parameterType="model.Menu">
+		insert into fm_menu(user_id, visitor_id, name, share_title, menu_type, avatr_img, created_at)
+		values(#{userId}, #{visitorId}, #{name}, #{shareTitle}, #{menuType}, #{avatrImg}, now())
+	</insert>
+	
+	<update id="delMenu">
+		update fm_menu set archive='1' where id=#{id}
+	</update>
+	
+	<update id="shareMenu" parameterType="model.Menu">
+		update fm_menu 
+		<set>	
+			<if test="name != null">name=#{name},</if>
+			<if test="shareTitle != null">share_title=#{shareTitle},</if>
+			<if test="avatrImg != null">avatr_img=#{avatrImg},</if>
+			<if test="menuType != null">menu_type=#{menuType},</if>
+			valid='1'
+		</set>
+		where id=#{id} and archive='0'
+	</update>
+	
+	<update id="editShareMenu" parameterType="model.Menu">
+		update fm_menu 
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="userId != null">user_id=#{userId},</if>
+			<if test="shareTitle != null">share_title=#{shareTitle},</if>
+			<if test="avatrImg != null">avatr_img=#{avatrImg},</if>
+			<if test="menuType != null">menu_type=#{menuType},</if>
+			<if test="valid != null">valid=#{valid},</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<insert id="insertSingerByBatch" parameterType="model.Singer" useGeneratedKeys="true" keyProperty="id">
+		insert into fm_singer(name, avatr_img) values(#{name}, #{avatrImg})
+	</insert>
+	
+	<insert id="insertAlbumByBatch" parameterType="model.Album" useGeneratedKeys="true" keyProperty="id">
+		insert into fm_album(singer_id, name, publish_time, intro, avatr_img, singer_name) values(#{singerId}, #{name}, #{publishTime}, #{intro}, #{avatrImg}, #{singerName})
+	</insert>
+	
+	<insert id="insertSongByBatch" parameterType="java.util.List">
+		insert into fm_song(album_id,singer_id,name,avatr_img,album_name,singer_name)
+		values
+		<foreach collection="list" item="item" index="index" separator=","  >  
+	     	(#{item.albumId},#{item.singerId},#{item.name},#{item.avatrImg},#{item.albumName},#{item.singerName})
+	    </foreach>
+	</insert>
+</mapper>
+

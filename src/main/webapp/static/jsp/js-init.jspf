@@ -1,0 +1,28 @@
+<script type="text/javascript" src="js/lib/angular.js"></script>
+<script type="text/javascript" src="js/lib/angular-ui-router.js"></script>
+<script type="text/javascript" src="js/lib/angular-translate.js"></script>
+<script type="text/javascript" src="js/i18n/i18n-zh.js"></script>
+<script type="text/javascript" src="js/i18n/i18n-czh.js"></script>
+<script type="text/javascript" src="js/lib/jquery-2.1.1.js"></script>
+
+
+<script type="text/javascript" src="js/views/login/login-controller.js"></script>
+<script type="text/javascript" src="js/views/search/search-controller.js"></script>
+<script type="text/javascript" src="js/views/heart/heart-controller.js"></script>
+<script type="text/javascript" src="js/views/personal/personal-controller.js"></script>
+<script type="text/javascript" src="js/views/filtrate/filtrate-controller.js"></script>
+
+<script type="text/javascript" src="js/directives/content-img/content-img-directive.js"></script>
+<script type="text/javascript" src="js/directives/list-head/list-head-directive.js"></script>
+<script type="text/javascript" src="js/directives/songs-list/songs-list-directive.js"></script>
+<script type="text/javascript" src="js/directives/albums-list/albums-list-directive.js"></script>
+<script type="text/javascript" src="js/directives/music-transmit/music-transmit-directive.js"></script>
+<script type="text/javascript" src="js/directives/singer-name-list/singer-name-list-directive.js"></script>
+<script type="text/javascript" src="js/directives/album-name-list/album-name-list-directive.js"></script>
+<script type="text/javascript" src="js/directives/context-menu/context-menu-directive.js"></script>
+
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/app-config.js"></script>
+<script type="text/javascript" src="js/app-controller.js"></script>
+
+
